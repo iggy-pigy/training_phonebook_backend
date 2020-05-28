@@ -51,10 +51,11 @@ app.get('/api/persons/:id', (request, response) => {
 
 })
 
-app.get('/api/persons/info', (req, res) => {
+app.get('/info', (req, res) => {
     const personCount = persons.length
+    console.log(personCount);
     const date = new Date()
-    res.send(<h1>Phonebook has info of {personCount} persons</h1><p>{date}</p>)
+    res.send(`<div><p>Phonebook has info of ${personCount} persons</p> <p>${date}</p></div>`)
 })
 
 app.delete('/api/persons/:id', (request, response) => {
