@@ -29,7 +29,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/api/persons', (req, res) => {
-    res.json(notes)
+    res.json(persons)
 })
 
 const PORT = 3001
