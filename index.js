@@ -25,6 +25,9 @@ let persons = [
     }
 ]
 
+
+
+
 app.get('/', (req, res) => {
     res.send('<h1>Hello World!</h1>')
 })
@@ -35,15 +38,30 @@ app.get('/api/persons', (req, res) => {
 
 app.get('/api/persons/:id', (request, response) => {
     const id = Number(request.params.id)
-    console.log(id)
+    //console.log(id)
+
     const person = persons.find(person => person.id === id)
-    console.log(person)
-    if (person) {
+    //console.log(person)
+
+    if (person === undefined) {
         response.json(person)
     } else {
         response.status(404).end()
     }
 
+})
+
+app.get('/api/persons/info', (req, res) => {
+    const personCount = persons.length
+    const date = new Date()
+    res.send(<h1>Phonebook has info of {personCount} persons</h1><p>{date}</p>)
+})
+
+app.delete('/api/persons/:id', (request, response) => {
+    const id = Number(request.params.id)
+    persons = persons.filter(person => person.id !== id)
+
+    response.status(204).end()
 })
 
 
