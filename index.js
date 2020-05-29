@@ -58,10 +58,33 @@ app.get('/info', (req, res) => {
     res.send(`<div><p>Phonebook has info of ${personCount} persons</p> <p>${date}</p></div>`)
 })
 
+const generateId = () => {
+    return Math.floor(Math.random() * 100)
+}
+
+app.post('/api/persons', (request, response) => {
+    const body = request.body
+
+    if (!body.content) {
+        return response.status(400).json({
+            error: 'content missing'
+        })
+    }
+    const person = {
+        name: body.name,
+        number: body.number,
+        id: generateId()
+    }
+    persons = persons.concat(person)
+    response.json(person)
+})
+
+
+
+
 app.delete('/api/persons/:id', (request, response) => {
     const id = Number(request.params.id)
     persons = persons.filter(person => person.id !== id)
-
     response.status(204).end()
 })
 
