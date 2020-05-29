@@ -59,7 +59,7 @@ app.get('/info', (req, res) => {
 })
 
 const generateId = () => {
-    return Math.floor(Math.random() * 100)
+    return Math.floor(Math.random() * 1000)
 }
 
 app.post('/api/persons', (request, response) => {
@@ -90,8 +90,6 @@ app.post('/api/persons', (request, response) => {
     persons = persons.concat(person)
     response.json(person)
 })
-
-
 
 
 app.delete('/api/persons/:id', (request, response) => {
