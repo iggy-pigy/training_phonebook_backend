@@ -1,5 +1,5 @@
 const express = require('express')
-const morgan = require("morgan")
+//const morgan = require("morgan")
 const app = express()
 const cors = require('cors')
 
@@ -10,7 +10,7 @@ app.use(express.static('build'))
 /*morgan.token('id', function (req) {
     return req.name
 })*/
-app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))
+//app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))
 
 let persons = [
     {
