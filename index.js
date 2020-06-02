@@ -1,6 +1,15 @@
 const express = require('express')
+const morgan = require("morgan")
 const app = express()
+const cors = require('cors')
+
+app.use(cors())
 app.use(express.json())
+
+/*morgan.token('id', function (req) {
+    return req.name
+})*/
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))
 
 let persons = [
     {
@@ -27,7 +36,6 @@ let persons = [
 
 
 
-
 app.get('/', (req, res) => {
     res.send('<h1>Hello World!</h1>')
 })
@@ -43,7 +51,7 @@ app.get('/api/persons/:id', (request, response) => {
     const person = persons.find(person => person.id === id)
     //console.log(person)
 
-    if (person === undefined) {
+    if (person) {
         response.json(person)
     } else {
         response.status(404).end()
