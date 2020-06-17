@@ -111,8 +111,7 @@ app.put('/api/persons/:id', (request, response, next) => {
     const body = request.body
 
     const person = {
-        name: body.name,
-        number: body.number,
+        number: body.number
     }
 
     Person.findByIdAndUpdate(request.params.id, person, { new: true })
