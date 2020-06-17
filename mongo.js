@@ -8,25 +8,31 @@ if (process.argv.length < 3) {
 const password = process.argv[2]
 
 const url =
-    `mongodb+srv://fullstack:${password}@cluster0-ddede.mongodb.net/note-app?retryWrites=true`
+    `mongodb+srv://fullstack:${password}@cluster0-ddede.mongodb.net/phonebook-app?retryWrites=true`
 
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
 
-const noteSchema = new mongoose.Schema({
-    content: String,
-    date: Date,
-    important: Boolean,
+const personSchema = new mongoose.Schema({
+    name: String,
+    number: Number,
 })
 
-const Note = mongoose.model('Note', noteSchema)
+const Person = mongoose.model('Person', personSchema)
 
-const note = new Note({
-    content: 'HTML is Easy',
-    date: new Date(),
-    important: true,
+const person = new Person({
+    name: 'Sergio Vallero',
+    number: 111111444555,
 })
 
-note.save().then(result => {
-    console.log('note saved!')
+
+/*person.save().then(result => {
+    console.log("Added", result.name, "number", result.number, "to phonebook.")
+    mongoose.connection.close();
+})*/
+
+Person.find({}).then(result => {
+    result.forEach(person => {
+        console.log(person)
+    })
     mongoose.connection.close()
 })
