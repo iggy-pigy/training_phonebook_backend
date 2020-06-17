@@ -52,17 +52,26 @@ app.get('/api/persons', (req, res) => {
 })
 
 app.get('/api/persons/:id', (request, response) => {
-    const id = Number(request.params.id)
-    //console.log(id)
+    Person.findById(request.params.id).then(person => {
+        if (person) {
+            response.json(person)
+        } else {
+            response.status(400).end()
+        }
+    })
+        .catch(error => {
+            console.log(error)
+            response.status(400).send({ error: 'malformatted id' })
+        })
 
+})
+    /*const id = Number(request.params.id)
     const person = persons.find(person => person.id === id)
-    //console.log(person)
-
     if (person) {
         response.json(person)
     } else {
         response.status(404).end()
-    }
+    }*/
 
 })
 
@@ -73,9 +82,9 @@ app.get('/info', (req, res) => {
     res.send(`<div><p>Phonebook has info of ${personCount} persons</p> <p>${date}</p></div>`)
 })
 
-const generateId = () => {
+/*const generateId = () => {
     return Math.floor(Math.random() * 1000)
-}
+}*/
 
 app.post('/api/persons', (request, response) => {
     const body = request.body
